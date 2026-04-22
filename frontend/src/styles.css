@@ -91,3 +91,7 @@ body {
 .text-warning {
   color: #f59f00 !important;
 }
+
+.auth-card {
+  background: linear-gradient(180deg, #ffffff 0%, #fffdf8 100%);
+}
