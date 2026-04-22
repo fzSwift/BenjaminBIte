@@ -4,21 +4,33 @@ import { MenuItem } from "../models/MenuItem";
 import { defaultMenuItems } from "../data/defaultMenuItems";
 
 const isDatabaseConnected = (): boolean => mongoose.connection.readyState === 1;
+const toAbsoluteImageUrl = (image: string | undefined, req: Request): string | undefined => {
+  if (!image) return image;
+  if (image.startsWith("http://") || image.startsWith("https://")) return image;
+  if (!image.startsWith("/")) return image;
+  return `${req.protocol}://${req.get("host")}${image}`;
+};
 
-export const getMenuItems = async (_req: Request, res: Response): Promise<void> => {
+const withAbsoluteImageUrls = <T extends { image?: string }>(items: T[], req: Request): T[] =>
+  items.map((item) => ({
+    ...item,
+    image: toAbsoluteImageUrl(item.image, req)
+  }));
+
+export const getMenuItems = async (req: Request, res: Response): Promise<void> => {
   if (!isDatabaseConnected()) {
     res.setHeader("X-App-Mode", "offline-demo");
-    res.json(defaultMenuItems);
+    res.json(withAbsoluteImageUrls(defaultMenuItems, req));
     return;
   }
 
   try {
-    const items = await MenuItem.find().sort({ createdAt: -1 });
-    res.json(items);
+    const items = await MenuItem.find().sort({ createdAt: -1 }).lean();
+    res.json(withAbsoluteImageUrls(items, req));
   } catch (error) {
     // Fallback for temporary DB issues so the menu still works for demos.
     res.setHeader("X-App-Mode", "offline-demo");
-    res.json(defaultMenuItems);
+    res.json(withAbsoluteImageUrls(defaultMenuItems, req));
   }
 };
 
@@ -37,7 +49,7 @@ export const searchMenuItems = async (req: Request, res: Response): Promise<void
       return matchesQuery && matchesCategory;
     });
     res.setHeader("X-App-Mode", "offline-demo");
-    res.json(filtered);
+    res.json(withAbsoluteImageUrls(filtered, req));
     return;
   }
 
@@ -52,11 +64,11 @@ export const searchMenuItems = async (req: Request, res: Response): Promise<void
     }
 
     if (category) filter.category = category;
-    const items = await MenuItem.find(filter);
-    res.json(items);
+    const items = await MenuItem.find(filter).lean();
+    res.json(withAbsoluteImageUrls(items, req));
   } catch (error) {
     res.setHeader("X-App-Mode", "offline-demo");
-    res.json(defaultMenuItems);
+    res.json(withAbsoluteImageUrls(defaultMenuItems, req));
   }
 };
 
