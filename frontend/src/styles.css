@@ -1,0 +1,93 @@
+body {
+  background: linear-gradient(180deg, #fff8ec 0%, #f7f9fc 45%, #eef2ff 100%);
+  color: #1f2937;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.bb-navbar {
+  background: rgba(17, 24, 39, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bb-navbar .nav-link {
+  color: #e5e7eb;
+  font-weight: 500;
+}
+
+.bb-navbar .nav-link.active {
+  color: #fbbf24;
+}
+
+.bb-brand-badge {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #fbbf24;
+  color: #111827;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.bb-brand-logo {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+}
+
+.bb-user-chip {
+  background: rgba(255, 255, 255, 0.14);
+  color: #f3f4f6;
+  border-radius: 999px;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.card {
+  border-radius: 14px;
+  border: 1px solid #edf0f5;
+  box-shadow: 0 8px 24px rgba(19, 35, 73, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.hero-card {
+  background: linear-gradient(135deg, #fffdf7, #fff3cd);
+}
+
+.section-title {
+  font-weight: 700;
+}
+
+.menu-image {
+  height: 190px;
+  object-fit: cover;
+}
+
+.price-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  background: #fff1cc;
+  color: #8a5700;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.text-warning {
+  color: #f59f00 !important;
+}
