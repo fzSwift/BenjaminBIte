@@ -55,11 +55,6 @@ const Header = () => {
 
         <div className="collapse navbar-collapse" id="bbNavbar">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/menu">
-                Menu
-              </NavLink>
-            </li>
             {user && (
               <>
                 <li className="nav-item">
